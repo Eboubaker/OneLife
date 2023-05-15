@@ -33,7 +33,7 @@ class SettingsPage : public GamePage, public ActionListener {
         virtual void makeActive( char inFresh );
         virtual void makeNotActive();
 		virtual void updatePage();
-        virtual bool checkRestartRequired();
+        virtual void checkRestartRequired();
 
     protected:
         
@@ -41,7 +41,16 @@ class SettingsPage : public GamePage, public ActionListener {
         int mOldBorderlessSetting;
         int mEnableNudeSetting;
         
-        int mPage;
+        int mEnableFOVSetting;
+        int mEnableKActionsSetting;
+        int mEnableCenterCameraSetting;
+#ifdef USE_DISCORD
+        int mDiscordRichPresenceSetting;
+        int mDiscordRichPresenceStatusSetting;
+        int mDiscordRichPresenceDetailsSetting;
+        int mDiscordHideFirstNameInDetailsSetting;
+#endif // USE_DISCORD
+            int mPage;
         
         SoundUsage mTestSound;
 
@@ -57,6 +66,9 @@ class SettingsPage : public GamePage, public ActionListener {
         TextButton mControlButton;
         TextButton mScreenButton;
         TextButton mSoundButton;
+#ifdef USE_DISCORD
+        TextButton mDiscordButton;
+#endif // USE_DISCORD
         TextButton mBackButton;
         
         TextButton mEditAccountButton;
@@ -86,5 +98,11 @@ class SettingsPage : public GamePage, public ActionListener {
         ValueSlider mMusicLoudnessSlider;
         ValueSlider mSoundEffectsLoudnessSlider;
 
-
+#ifdef USE_DISCORD
+        // Discord
+        CheckboxButton mEnableDiscordRichPresence;
+        CheckboxButton mEnableDiscordRichPresenceStatus;
+        CheckboxButton mEnableDiscordRichPresenceDetails;
+        CheckboxButton mDiscordHideFirstNameInDetails;
+#endif // USE_DISCORD
     };

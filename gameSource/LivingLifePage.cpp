@@ -2963,6 +2963,8 @@ static int lastPongReceived = 0;
 
 
 int ourID;
+double ourAge;
+int stepCount = 0;
 
 static int valleySpacing = 40;
 static int valleyOffset = 0;
@@ -14607,6 +14609,10 @@ void LivingLifePage::step() {
     
 	minitech::livingLifeStep();
 	HetuwMod::livingLifeStep();
+    stepCount++;
+    if (stepCount > 10000) stepCount = 0;
+    if (ourObject != NULL && stepCount % 10 == 0)
+        ourAge = computeServerAge(computeCurrentAge(ourObject));
 
     if( showFPS ) {
         timeMeasures[1] += game_getCurrentTime() - updateStartTime;
@@ -27495,3 +27501,16 @@ void LivingLifePage::updateLeadership() {
     
     }
 
+
+double LivingLifePage::getLastComputedAge() {
+    // for DiscordController
+    return ourAge;
+    }
+char LivingLifePage::receivedOurLiveObject() {
+    // for DiscordController
+    return mFirstServerMessagesReceived > 2;
+}
+
+char LivingLifePage::isTutorial() {
+    return 0 != mTutorialNumber;
+}
